@@ -1,0 +1,6 @@
+{
+  "name": "Umbrella",
+  "description": "Weather assistant chat app powered by Gemini function calling and remote Model Context Protocol (MCP) server.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
