@@ -38,6 +38,8 @@ interface Message {
 
 interface HealthResponse {
   status: string;
+  timestamp?: string;
+  endpoint?: string;
   geminiConfigured: boolean;
   mcpConfigured: boolean;
   mcp: {
@@ -299,8 +301,8 @@ export default function App() {
             </div>
 
             <div className="flex items-center gap-2 text-[11px] text-slate-400 font-mono">
-              <span className="truncate max-w-[240px] text-slate-500">
-                https://mcp_weather_server--isdaniel.run.tools
+              <span className="truncate max-w-[240px] text-slate-400" title={health?.endpoint || 'http://localhost:8080/mcp'}>
+                {health?.endpoint || 'http://localhost:8080/mcp'}
               </span>
               {health?.mcp?.connected ? (
                 <span className="inline-flex items-center gap-1 text-emerald-400 font-medium">
@@ -308,11 +310,11 @@ export default function App() {
                 </span>
               ) : (
                 <span
-                  className="inline-flex items-center gap-1 text-amber-400 font-medium cursor-help"
-                  title={health?.mcp?.error || 'Awaiting MCP_SERVER_KEY'}
+                  className="inline-flex items-center gap-1 text-slate-400 font-medium cursor-help"
+                  title={health?.mcp?.error || 'Direct MCP endpoint (no API key required)'}
                 >
-                  <AlertCircle className="w-3 h-3" />
-                  {health?.mcp?.error ? health.mcp.error.slice(0, 22) + '...' : 'Awaiting Key'}
+                  <AlertCircle className="w-3 h-3 text-cyan-400" />
+                  {health?.mcp?.error ? health.mcp.error.slice(0, 20) + '...' : 'Ready (No Key)'}
                 </span>
               )}
             </div>

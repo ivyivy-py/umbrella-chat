@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-const MCP_ENDPOINT = 'https://mcp_weather_server--isdaniel.run.tools';
+const MCP_ENDPOINT = process.env.MCP_ENDPOINT || 'http://localhost:8080/mcp';
 
 let mcpSessionId = null;
 
@@ -113,6 +113,7 @@ export default async function handler(req, res) {
   const healthData = {
     status: 'healthy',
     timestamp: new Date().toISOString(),
+    endpoint: MCP_ENDPOINT,
     geminiConfigured: Boolean(process.env.GEMINI_API_KEY),
     mcpConfigured: mcpKeyConfigured,
     mcp: {

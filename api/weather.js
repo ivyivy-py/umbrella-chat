@@ -3,7 +3,7 @@ import { GoogleGenAI, Type } from '@google/genai';
 
 dotenv.config();
 
-const MCP_ENDPOINT = 'https://mcp_weather_server--isdaniel.run.tools';
+const MCP_ENDPOINT = process.env.MCP_ENDPOINT || 'http://localhost:8080/mcp';
 
 let mcpSessionId = null;
 let mcpInitialized = false;
@@ -284,12 +284,14 @@ export default async function handler(req, res) {
       const conn = await ensureMcpConnected();
       return res.status(200).json({
         connected: true,
+        endpoint: MCP_ENDPOINT,
         tools: conn.tools,
         error: null
       });
     } catch (err) {
       return res.status(200).json({
         connected: false,
+        endpoint: MCP_ENDPOINT,
         tools: [],
         error: err.message
       });
